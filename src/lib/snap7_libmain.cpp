@@ -68,12 +68,12 @@ BOOL APIENTRY DllMain (HINSTANCE hInst,
 //***************************************************************************
 // CLIENT
 //***************************************************************************
-S7Object S7API Cli_Create()
+EXPORTSPEC S7Object S7API Cli_Create()
 {    
     return S7Object(new TSnap7Client());
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Destroy(S7Object &Client)
+EXPORTSPEC void S7API Cli_Destroy(S7Object &Client)
 {
     if (Client)
     {
@@ -82,7 +82,7 @@ void S7API Cli_Destroy(S7Object &Client)
     }
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetConnectionParams(S7Object Client, const char *Address, word LocalTSAP, word RemoteTSAP)
+EXPORTSPEC int S7API Cli_SetConnectionParams(S7Object Client, const char *Address, word LocalTSAP, word RemoteTSAP)
 {
     if (Client)
     {
@@ -93,7 +93,7 @@ void S7API Cli_SetConnectionParams(S7Object Client, const char *Address, word Lo
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetConnectionType(S7Object Client, word ConnectionType)
+EXPORTSPEC int S7API Cli_SetConnectionType(S7Object Client, word ConnectionType)
 {
     if (Client)
     {
@@ -104,7 +104,7 @@ void S7API Cli_SetConnectionType(S7Object Client, word ConnectionType)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ConnectTo(S7Object Client, const char *Address, int Rack, int Slot)
+EXPORTSPEC int S7API Cli_ConnectTo(S7Object Client, const char *Address, int Rack, int Slot)
 {
     if (Client)
         return PSnap7Client(Client)->ConnectTo(Address, Rack, Slot);
@@ -112,7 +112,7 @@ void S7API Cli_ConnectTo(S7Object Client, const char *Address, int Rack, int Slo
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Connect(S7Object Client)
+EXPORTSPEC int S7API Cli_Connect(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->Connect();
@@ -120,7 +120,7 @@ void S7API Cli_Connect(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Disconnect(S7Object Client)
+EXPORTSPEC int S7API Cli_Disconnect(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->Disconnect();
@@ -128,7 +128,7 @@ void S7API Cli_Disconnect(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetParam(S7Object Client, int ParamNumber, void *pValue)
+EXPORTSPEC int S7API Cli_GetParam(S7Object Client, int ParamNumber, void *pValue)
 {
     if (Client)
         return PSnap7Client(Client)->GetParam(ParamNumber, pValue);
@@ -136,7 +136,7 @@ void S7API Cli_GetParam(S7Object Client, int ParamNumber, void *pValue)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetParam(S7Object Client, int ParamNumber, void *pValue)
+EXPORTSPEC int S7API Cli_SetParam(S7Object Client, int ParamNumber, void *pValue)
 {
     if (Client)
         return PSnap7Client(Client)->SetParam(ParamNumber, pValue);
@@ -144,7 +144,7 @@ void S7API Cli_SetParam(S7Object Client, int ParamNumber, void *pValue)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetAsCallback(S7Object Client, pfn_CliCompletion pCompletion, void *usrPtr)
+EXPORTSPEC int S7API Cli_SetAsCallback(S7Object Client, pfn_CliCompletion pCompletion, void *usrPtr)
 {
     if (Client)
         return PSnap7Client(Client)->SetAsCallback(pCompletion, usrPtr);
@@ -152,7 +152,7 @@ void S7API Cli_SetAsCallback(S7Object Client, pfn_CliCompletion pCompletion, voi
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ReadArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
+EXPORTSPEC int S7API Cli_ReadArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->ReadArea(Area, DBNumber, Start, Amount, WordLen, pUsrData);
@@ -160,7 +160,7 @@ void S7API Cli_ReadArea(S7Object Client, int Area, int DBNumber, int Start, int 
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_WriteArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
+EXPORTSPEC int S7API Cli_WriteArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->WriteArea(Area, DBNumber, Start, Amount, WordLen, pUsrData);
@@ -168,7 +168,7 @@ void S7API Cli_WriteArea(S7Object Client, int Area, int DBNumber, int Start, int
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ReadMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
+EXPORTSPEC int S7API Cli_ReadMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
 {
     if (Client)
         return PSnap7Client(Client)->ReadMultiVars(Item, ItemsCount);
@@ -176,7 +176,7 @@ void S7API Cli_ReadMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_WriteMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
+EXPORTSPEC int S7API Cli_WriteMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
 {
     if (Client)
         return PSnap7Client(Client)->WriteMultiVars(Item, ItemsCount);
@@ -184,7 +184,7 @@ void S7API Cli_WriteMultiVars(S7Object Client, PS7DataItem Item, int ItemsCount)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_DBRead(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_DBRead(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->DBRead(DBNumber, Start, Size, pUsrData);
@@ -192,7 +192,7 @@ void S7API Cli_DBRead(S7Object Client, int DBNumber, int Start, int Size, void *
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_DBWrite(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_DBWrite(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->DBWrite(DBNumber, Start, Size, pUsrData);
@@ -200,7 +200,7 @@ void S7API Cli_DBWrite(S7Object Client, int DBNumber, int Start, int Size, void 
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_MBRead(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_MBRead(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->MBRead(Start, Size, pUsrData);
@@ -208,7 +208,7 @@ void S7API Cli_MBRead(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_MBWrite(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_MBWrite(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->MBWrite(Start, Size, pUsrData);
@@ -216,7 +216,7 @@ void S7API Cli_MBWrite(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_EBRead(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_EBRead(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->EBRead(Start, Size, pUsrData);
@@ -224,7 +224,7 @@ void S7API Cli_EBRead(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_EBWrite(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_EBWrite(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->EBWrite(Start, Size, pUsrData);
@@ -232,7 +232,7 @@ void S7API Cli_EBWrite(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ABRead(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_ABRead(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->ABRead(Start, Size, pUsrData);
@@ -240,7 +240,7 @@ void S7API Cli_ABRead(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ABWrite(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_ABWrite(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->ABWrite(Start, Size, pUsrData);
@@ -248,7 +248,7 @@ void S7API Cli_ABWrite(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_TMRead(S7Object Client, int Start, int Amount, void *pUsrData)
+EXPORTSPEC int S7API Cli_TMRead(S7Object Client, int Start, int Amount, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->TMRead(Start, Amount, pUsrData);
@@ -256,7 +256,7 @@ void S7API Cli_TMRead(S7Object Client, int Start, int Amount, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_TMWrite(S7Object Client, int Start, int Amount, void *pUsrData)
+EXPORTSPEC int S7API Cli_TMWrite(S7Object Client, int Start, int Amount, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->TMWrite(Start, Amount, pUsrData);
@@ -264,7 +264,7 @@ void S7API Cli_TMWrite(S7Object Client, int Start, int Amount, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_CTRead(S7Object Client, int Start, int Amount, void *pUsrData)
+EXPORTSPEC int S7API Cli_CTRead(S7Object Client, int Start, int Amount, void *pUsrData)
 {
     if (Client)
          return PSnap7Client(Client)->CTRead(Start, Amount, pUsrData);
@@ -272,7 +272,7 @@ void S7API Cli_CTRead(S7Object Client, int Start, int Amount, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_CTWrite(S7Object Client, int Start, int Amount, void *pUsrData)
+EXPORTSPEC int S7API Cli_CTWrite(S7Object Client, int Start, int Amount, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->CTWrite(Start, Amount, pUsrData);
@@ -280,7 +280,7 @@ void S7API Cli_CTWrite(S7Object Client, int Start, int Amount, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ListBlocks(S7Object Client, TS7BlocksList *pUsrData)
+EXPORTSPEC int S7API Cli_ListBlocks(S7Object Client, TS7BlocksList *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->ListBlocks(pUsrData);
@@ -288,7 +288,7 @@ void S7API Cli_ListBlocks(S7Object Client, TS7BlocksList *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetAgBlockInfo(S7Object Client, int BlockType, int BlockNum, TS7BlockInfo *pUsrData)
+EXPORTSPEC int S7API Cli_GetAgBlockInfo(S7Object Client, int BlockType, int BlockNum, TS7BlockInfo *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->GetAgBlockInfo(BlockType, BlockNum, pUsrData);
@@ -296,7 +296,7 @@ void S7API Cli_GetAgBlockInfo(S7Object Client, int BlockType, int BlockNum, TS7B
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetPgBlockInfo(S7Object Client, void *pBlock, TS7BlockInfo *pUsrData, int Size)
+EXPORTSPEC int S7API Cli_GetPgBlockInfo(S7Object Client, void *pBlock, TS7BlockInfo *pUsrData, int Size)
 {
     if (Client)
         return PSnap7Client(Client)->GetPgBlockInfo(pBlock, pUsrData, Size);
@@ -304,7 +304,7 @@ void S7API Cli_GetPgBlockInfo(S7Object Client, void *pBlock, TS7BlockInfo *pUsrD
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ListBlocksOfType(S7Object Client, int BlockType, TS7BlocksOfType *pUsrData, int &ItemsCount)
+EXPORTSPEC int S7API Cli_ListBlocksOfType(S7Object Client, int BlockType, TS7BlocksOfType *pUsrData, int &ItemsCount)
 {
     if (Client)
         return PSnap7Client(Client)->ListBlocksOfType(BlockType, pUsrData, ItemsCount);
@@ -312,7 +312,7 @@ void S7API Cli_ListBlocksOfType(S7Object Client, int BlockType, TS7BlocksOfType 
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Upload(S7Object Client, int BlockType, int BlockNum, void *pUsrData, int &Size)
+EXPORTSPEC int S7API Cli_Upload(S7Object Client, int BlockType, int BlockNum, void *pUsrData, int &Size)
 {
     if (Client)
         return PSnap7Client(Client)->Upload(BlockType, BlockNum, pUsrData, Size);
@@ -320,7 +320,7 @@ void S7API Cli_Upload(S7Object Client, int BlockType, int BlockNum, void *pUsrDa
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_FullUpload(S7Object Client, int BlockType, int BlockNum, void *pUsrData, int &Size)
+EXPORTSPEC int S7API Cli_FullUpload(S7Object Client, int BlockType, int BlockNum, void *pUsrData, int &Size)
 {
     if (Client)
         return PSnap7Client(Client)->FullUpload(BlockType, BlockNum, pUsrData, Size);
@@ -328,7 +328,7 @@ void S7API Cli_FullUpload(S7Object Client, int BlockType, int BlockNum, void *pU
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Download(S7Object Client, int BlockNum, void *pUsrData, int Size)
+EXPORTSPEC int S7API Cli_Download(S7Object Client, int BlockNum, void *pUsrData, int Size)
 {
     if (Client)
         return PSnap7Client(Client)->Download(BlockNum, pUsrData, Size);
@@ -336,7 +336,7 @@ void S7API Cli_Download(S7Object Client, int BlockNum, void *pUsrData, int Size)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Delete(S7Object Client, int BlockType, int BlockNum)
+EXPORTSPEC int S7API Cli_Delete(S7Object Client, int BlockType, int BlockNum)
 {
     if (Client)
         return PSnap7Client(Client)->Delete(BlockType, BlockNum);
@@ -344,7 +344,7 @@ void S7API Cli_Delete(S7Object Client, int BlockType, int BlockNum)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_DBGet(S7Object Client, int DBNumber, void *pUsrData, int &Size)
+EXPORTSPEC int S7API Cli_DBGet(S7Object Client, int DBNumber, void *pUsrData, int &Size)
 {
     if (Client)
         return PSnap7Client(Client)->DBGet(DBNumber, pUsrData, Size);
@@ -352,7 +352,7 @@ void S7API Cli_DBGet(S7Object Client, int DBNumber, void *pUsrData, int &Size)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_DBFill(S7Object Client, int DBNumber, int FillChar)
+EXPORTSPEC int S7API Cli_DBFill(S7Object Client, int DBNumber, int FillChar)
 {
     if (Client)
         return PSnap7Client(Client)->DBFill(DBNumber, FillChar);
@@ -360,7 +360,7 @@ void S7API Cli_DBFill(S7Object Client, int DBNumber, int FillChar)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetPlcDateTime(S7Object Client, tm &DateTime)
+EXPORTSPEC int S7API Cli_GetPlcDateTime(S7Object Client, tm &DateTime)
 {
     if (Client)
         return PSnap7Client(Client)->GetPlcDateTime(DateTime);
@@ -368,7 +368,7 @@ void S7API Cli_GetPlcDateTime(S7Object Client, tm &DateTime)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetPlcDateTime(S7Object Client, tm *DateTime)
+EXPORTSPEC int S7API Cli_SetPlcDateTime(S7Object Client, tm *DateTime)
 {
     if (Client)
         return PSnap7Client(Client)->SetPlcDateTime(DateTime);
@@ -376,7 +376,7 @@ void S7API Cli_SetPlcDateTime(S7Object Client, tm *DateTime)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetPlcSystemDateTime(S7Object Client)
+EXPORTSPEC int S7API Cli_SetPlcSystemDateTime(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->SetPlcSystemDateTime();
@@ -384,7 +384,7 @@ void S7API Cli_SetPlcSystemDateTime(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetOrderCode(S7Object Client, TS7OrderCode *pUsrData)
+EXPORTSPEC int S7API Cli_GetOrderCode(S7Object Client, TS7OrderCode *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->GetOrderCode(pUsrData);
@@ -392,7 +392,7 @@ void S7API Cli_GetOrderCode(S7Object Client, TS7OrderCode *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetCpuInfo(S7Object Client, TS7CpuInfo *pUsrData)
+EXPORTSPEC int S7API Cli_GetCpuInfo(S7Object Client, TS7CpuInfo *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->GetCpuInfo(pUsrData);
@@ -400,7 +400,7 @@ void S7API Cli_GetCpuInfo(S7Object Client, TS7CpuInfo *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetCpInfo(S7Object Client, TS7CpInfo *pUsrData)
+EXPORTSPEC int S7API Cli_GetCpInfo(S7Object Client, TS7CpInfo *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->GetCpInfo(pUsrData);
@@ -408,7 +408,7 @@ void S7API Cli_GetCpInfo(S7Object Client, TS7CpInfo *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ReadSZL(S7Object Client, int ID, int Index, TS7SZL *pUsrData, int &Size)
+EXPORTSPEC int S7API Cli_ReadSZL(S7Object Client, int ID, int Index, TS7SZL *pUsrData, int &Size)
 {
     if (Client)
         return PSnap7Client(Client)->ReadSZL(ID, Index, pUsrData, Size);
@@ -416,7 +416,7 @@ void S7API Cli_ReadSZL(S7Object Client, int ID, int Index, TS7SZL *pUsrData, int
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ReadSZLList(S7Object Client, TS7SZLList *pUsrData, int &ItemsCount)
+EXPORTSPEC int S7API Cli_ReadSZLList(S7Object Client, TS7SZLList *pUsrData, int &ItemsCount)
 {
     if (Client)
         return PSnap7Client(Client)->ReadSZLList(pUsrData, ItemsCount);
@@ -424,7 +424,7 @@ void S7API Cli_ReadSZLList(S7Object Client, TS7SZLList *pUsrData, int &ItemsCoun
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_PlcHotStart(S7Object Client)
+EXPORTSPEC int S7API Cli_PlcHotStart(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->PlcHotStart();
@@ -432,7 +432,7 @@ void S7API Cli_PlcHotStart(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_PlcColdStart(S7Object Client)
+EXPORTSPEC int S7API Cli_PlcColdStart(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->PlcColdStart();
@@ -440,7 +440,7 @@ void S7API Cli_PlcColdStart(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_PlcStop(S7Object Client)
+EXPORTSPEC int S7API Cli_PlcStop(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->PlcStop();
@@ -448,7 +448,7 @@ void S7API Cli_PlcStop(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_CopyRamToRom(S7Object Client, int Timeout)
+EXPORTSPEC int S7API Cli_CopyRamToRom(S7Object Client, int Timeout)
 {
     if (Client)
         return PSnap7Client(Client)->CopyRamToRom(Timeout);
@@ -456,7 +456,7 @@ void S7API Cli_CopyRamToRom(S7Object Client, int Timeout)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_Compress(S7Object Client, int Timeout)
+EXPORTSPEC int S7API Cli_Compress(S7Object Client, int Timeout)
 {
     if (Client)
         return PSnap7Client(Client)->Compress(Timeout);
@@ -464,7 +464,7 @@ void S7API Cli_Compress(S7Object Client, int Timeout)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetPlcStatus(S7Object Client, int &Status)
+EXPORTSPEC int S7API Cli_GetPlcStatus(S7Object Client, int &Status)
 {
     if (Client)
         return PSnap7Client(Client)->GetPlcStatus(Status);
@@ -472,7 +472,7 @@ void S7API Cli_GetPlcStatus(S7Object Client, int &Status)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetProtection(S7Object Client, TS7Protection *pUsrData)
+EXPORTSPEC int S7API Cli_GetProtection(S7Object Client, TS7Protection *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->GetProtection(pUsrData);
@@ -480,7 +480,7 @@ void S7API Cli_GetProtection(S7Object Client, TS7Protection *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_SetSessionPassword(S7Object Client, char *Password)
+EXPORTSPEC int S7API Cli_SetSessionPassword(S7Object Client, char *Password)
 {
     if (Client)
         return PSnap7Client(Client)->SetSessionPassword(Password);
@@ -488,7 +488,7 @@ void S7API Cli_SetSessionPassword(S7Object Client, char *Password)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ClearSessionPassword(S7Object Client)
+EXPORTSPEC int S7API Cli_ClearSessionPassword(S7Object Client)
 {
     if (Client)
         return PSnap7Client(Client)->ClearSessionPassword();
@@ -496,7 +496,7 @@ void S7API Cli_ClearSessionPassword(S7Object Client)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_IsoExchangeBuffer(S7Object Client, void *pUsrData, int &Size)
+EXPORTSPEC int S7API Cli_IsoExchangeBuffer(S7Object Client, void *pUsrData, int &Size)
 {
     if (Client)
         return PSnap7Client(Client)->isoExchangeBuffer(pUsrData, Size);
@@ -504,7 +504,7 @@ void S7API Cli_IsoExchangeBuffer(S7Object Client, void *pUsrData, int &Size)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetExecTime(S7Object Client, int &Time)
+EXPORTSPEC int S7API Cli_GetExecTime(S7Object Client, int &Time)
 {
     if (Client)
     {
@@ -515,7 +515,7 @@ void S7API Cli_GetExecTime(S7Object Client, int &Time)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetLastError(S7Object Client, int &LastError)
+EXPORTSPEC int S7API Cli_GetLastError(S7Object Client, int &LastError)
 {
     if (Client)
     {
@@ -526,7 +526,7 @@ void S7API Cli_GetLastError(S7Object Client, int &LastError)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetPduLength(S7Object Client, int &Requested, int &Negotiated)
+EXPORTSPEC int S7API Cli_GetPduLength(S7Object Client, int &Requested, int &Negotiated)
 {
     if (Client)
     {
@@ -538,7 +538,7 @@ void S7API Cli_GetPduLength(S7Object Client, int &Requested, int &Negotiated)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_ErrorText(int Error, char *Text, int TextLen)
+EXPORTSPEC int S7API Cli_ErrorText(int Error, char *Text, int TextLen)
 {
 	try{
 		ErrCliText(Error, Text, TextLen);
@@ -550,7 +550,7 @@ void S7API Cli_ErrorText(int Error, char *Text, int TextLen)
 	return 0;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_GetConnected(S7Object Client, int &Connected)
+EXPORTSPEC int S7API Cli_GetConnected(S7Object Client, int &Connected)
 {
     Connected=0;
 	if (Client)
@@ -562,7 +562,7 @@ void S7API Cli_GetConnected(S7Object Client, int &Connected)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsReadArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsReadArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsReadArea(Area, DBNumber, Start, Amount, WordLen, pUsrData);
@@ -570,7 +570,7 @@ void S7API Cli_AsReadArea(S7Object Client, int Area, int DBNumber, int Start, in
         return errLibInvalidParam;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsWriteArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsWriteArea(S7Object Client, int Area, int DBNumber, int Start, int Amount, int WordLen, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsWriteArea(Area, DBNumber, Start, Amount, WordLen, pUsrData);
@@ -578,7 +578,7 @@ void S7API Cli_AsWriteArea(S7Object Client, int Area, int DBNumber, int Start, i
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsDBRead(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsDBRead(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsDBRead(DBNumber, Start, Size, pUsrData);
@@ -586,7 +586,7 @@ void S7API Cli_AsDBRead(S7Object Client, int DBNumber, int Start, int Size, void
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsDBWrite(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsDBWrite(S7Object Client, int DBNumber, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsDBWrite(DBNumber, Start, Size, pUsrData);
@@ -594,7 +594,7 @@ void S7API Cli_AsDBWrite(S7Object Client, int DBNumber, int Start, int Size, voi
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsMBRead(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsMBRead(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsMBRead(Start, Size, pUsrData);
@@ -602,7 +602,7 @@ void S7API Cli_AsMBRead(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsMBWrite(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsMBWrite(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsMBWrite(Start, Size, pUsrData);
@@ -610,7 +610,7 @@ void S7API Cli_AsMBWrite(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsEBRead(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsEBRead(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsEBRead(Start, Size, pUsrData);
@@ -618,7 +618,7 @@ void S7API Cli_AsEBRead(S7Object Client, int Start, int Size, void *pUsrData)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Cli_AsEBWrite(S7Object Client, int Start, int Size, void *pUsrData)
+EXPORTSPEC int S7API Cli_AsEBWrite(S7Object Client, int Start, int Size, void *pUsrData)
 {
     if (Client)
         return PSnap7Client(Client)->AsEBWrite(Start, Size, pUsrData);
@@ -1182,7 +1182,7 @@ int S7API Par_GetStatus(S7Object Partner, int &Status)
         return errLibInvalidObject;
 }
 //---------------------------------------------------------------------------
-void S7API Par_ErrorText(int Error, char *Text, int TextLen)
+EXPORTSPEC int S7API Par_ErrorText(int Error, char *Text, int TextLen)
 {
 	try{
 		ErrParText(Error, Text, TextLen);
